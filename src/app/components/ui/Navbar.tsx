@@ -31,7 +31,7 @@ const Navbar = () => {
         {links.map(({ pathName, url }, index) => (
           <li
             key={index}
-            className={`text-lg font-semibold ${
+            className={`text-lg font-semibold transition-colors ${
               path === url ? "text-zinc-900" : "text-zinc-500"
             }`}
           >

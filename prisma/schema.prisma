@@ -56,7 +56,7 @@ model Issue {
     id          String   @id @default(cuid())
     title       String
     description String
-    status      Status
+    status      Status   @default(OPEN)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
     // relation 1 -> many (1:n)
