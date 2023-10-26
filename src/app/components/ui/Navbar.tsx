@@ -28,14 +28,14 @@ const Navbar = () => {
     <nav className="flex h-16 items-center space-x-6 border-b-2 border-b-black px-5">
       <Bug />
       <ul className="flex space-x-6">
-        {links.map((link, index) => (
+        {links.map(({ pathName, url }, index) => (
           <li
             key={index}
             className={`text-lg font-semibold ${
-              path === link.url ? "text-zinc-900" : "text-zinc-500"
+              path === url ? "text-zinc-900" : "text-zinc-500"
             }`}
           >
-            <Link href={link.url}>{link.pathName}</Link>
+            <Link href={url}>{pathName}</Link>
           </li>
         ))}
       </ul>
