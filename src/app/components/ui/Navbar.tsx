@@ -3,13 +3,20 @@ import { Bug } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import SignInButton from "./SignInButton";
+import { type Session } from "next-auth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type LinkProps = {
   pathName: string;
   url: string;
 };
 
-const Navbar = () => {
+type NavbarProps = {
+  session: Session | null;
+};
+
+const Navbar = ({ session }: NavbarProps) => {
   const links: Array<LinkProps> = [
     {
       pathName: "Dashboard",
@@ -39,6 +46,13 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
+      <div className="absolute right-0 flex space-x-2 p-4">
+        <SignInButton session={session} />
+        <Avatar>
+          <AvatarImage src={session?.user.image ?? ""} />
+          <AvatarFallback>{session?.user.name ?? ""}</AvatarFallback>
+        </Avatar>
+      </div>
     </nav>
   );
 };
