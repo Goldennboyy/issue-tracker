@@ -33,4 +33,15 @@ export const issueRouter = createTRPCRouter({
         },
       });
     }),
+
+  getIssues: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.issue.findMany({
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        status: true,
+      },
+    });
+  }),
 });

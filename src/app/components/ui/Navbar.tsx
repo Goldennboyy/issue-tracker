@@ -7,6 +7,8 @@ import SignInButton from "./SignInButton";
 import { type Session } from "next-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+// todo use zustand to get the global state instead of passing it as a prop
+
 type LinkProps = {
   pathName: string;
   url: string;

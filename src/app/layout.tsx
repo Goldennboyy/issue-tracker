@@ -25,7 +25,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerAuthSession();
-
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
