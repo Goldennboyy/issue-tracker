@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import { PlusCircleIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { IssueList } from "../components/ui/IssueList";
+import { IssueList } from "../_components/ui/IssueList";
 
 const IssuePage = () => {
   return (
-    <div className="flex max-w-7xl flex-col">
+    <div className="flex max-w-7xl flex-col ">
       <Link href={"/issues/new"}>
         <Button>
           <div className="flex gap-2">

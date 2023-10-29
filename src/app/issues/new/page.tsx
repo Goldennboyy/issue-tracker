@@ -25,30 +25,31 @@ const NewIssue = () => {
   const { toast } = useToast();
 
   const createIssue = api.issue.createIssue.useMutation({
-    onSuccess: () => {
-      toast({
-        title: "Success",
-        variant: "default",
-        description: "Your issue has been created",
-      });
-    },
-    onError: () => {
+    onError: (error) => {
       toast({
         title: "Error",
         variant: "destructive",
-        description: "Your issue has been created",
+        description: `Error : ${error.message}`,
       });
     },
   });
 
   const onSubmit = (values: Issue) => {
+    console.log(values);
     createIssue.mutate({ ...values });
+    toast({
+      title: "Success",
+      variant: "default",
+      description: "Your issue has been created",
+    });
   };
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={() => {
+          form.handleSubmit(onSubmit);
+        }}
         className="mx-auto mt-44 max-w-xl space-y-6"
       >
         <FormField

@@ -44,4 +44,18 @@ export const issueRouter = createTRPCRouter({
       },
     });
   }),
+
+  deleteIssue: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.issue.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });

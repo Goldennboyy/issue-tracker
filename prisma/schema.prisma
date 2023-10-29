@@ -54,7 +54,7 @@ model User {
 
 model Issue {
     id          String   @id @default(cuid())
-    title       String
+    title       String   @unique
     description String
     status      Status   @default(OPEN)
     createdAt   DateTime @default(now())
