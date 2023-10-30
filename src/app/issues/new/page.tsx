@@ -2,13 +2,6 @@
 import { type Issue, IssueSchema } from "@/app/schema/IssueSchema";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
@@ -20,11 +13,22 @@ import { useToast } from "@/components/ui/use-toast";
 const NewIssue = () => {
   const form = useForm<Issue>({
     resolver: zodResolver(IssueSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+    },
   });
 
   const { toast } = useToast();
 
   const createIssue = api.issue.createIssue.useMutation({
+    onSuccess: () => {
+      toast({
+        title: "Success",
+        variant: "default",
+        description: "Your issue has been created",
+      });
+    },
     onError: (error) => {
       toast({
         title: "Error",
@@ -37,54 +41,49 @@ const NewIssue = () => {
   const onSubmit = (values: Issue) => {
     console.log(values);
     createIssue.mutate({ ...values });
-    toast({
-      title: "Success",
-      variant: "default",
-      description: "Your issue has been created",
-    });
+    form.reset();
   };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={() => {
-          form.handleSubmit(onSubmit);
-        }}
-        className="mx-auto mt-44 max-w-xl space-y-6"
-      >
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Title</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter a title" {...field} />
-              </FormControl>
-            </FormItem>
-          )}
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="mx-auto mt-44 max-w-xl space-y-6"
+    >
+      <div>
+        <label htmlFor="title">Title</label>
+        <Input
+          {...form.register("title")}
+          type="text"
+          placeholder="Enter the title"
         />
+        {form.formState.errors.title && (
+          <span className="text-red-500">
+            {form.formState.errors.title.message}
+          </span>
+        )}
+      </div>
 
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Enter the description of the issue"
-                  {...field}
-                />
-              </FormControl>
-            </FormItem>
-          )}
+      <div>
+        <label htmlFor="descriprion">Description</label>
+        <Textarea
+          {...form.register("description")}
+          placeholder="Enter the description of the issue"
         />
-        <Button variant={"default"} className={cn("bg-blue-500")} type="submit">
-          Submit
-        </Button>
-      </form>
-    </Form>
+        {form.formState.errors.description && (
+          <span className="text-red-500">
+            {form.formState.errors.description.message}
+          </span>
+        )}
+      </div>
+
+      <Button
+        variant={"default"}
+        className={cn("bg-blue-400 hover:bg-blue-500")}
+        type="submit"
+      >
+        Submit
+      </Button>
+    </form>
   );
 };
 
