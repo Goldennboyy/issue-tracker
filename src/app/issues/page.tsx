@@ -7,7 +7,7 @@ import { IssueList } from "../_components/ui/IssueList";
 
 const IssuePage = () => {
   return (
-    <div className="flex max-w-7xl flex-col ">
+    <div className="flex w-full max-w-7xl flex-col ">
       <Link href={"/issues/new"}>
         <Button>
           <div className="flex gap-2">
@@ -19,7 +19,9 @@ const IssuePage = () => {
       <div className="py-10">
         <h1 className="text-2xl font-semibold">Latest Issue</h1>
       </div>
-      <IssueList />
+      <div className="">
+        <IssueList />
+      </div>
     </div>
   );
 };
