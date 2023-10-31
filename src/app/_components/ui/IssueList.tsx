@@ -9,9 +9,12 @@ import { cn } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { type Status } from "@prisma/client";
 import { PencilIcon, XCircleIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import BadgeStatus from "./BadgeStatus";
 import { useToast } from "@/components/ui/use-toast";
+import ModifyIssue from "./ModifyIssue";
+import Loading from "./Loading";
+import { useIssueStore } from "@/app/store/store";
 
 type issueCardProps = {
   id: string;
@@ -21,7 +24,8 @@ type issueCardProps = {
 };
 
 export const IssueList = () => {
-  const { data: issues } = api.issue.getIssues.useQuery();
+  const { data: issues, isLoading } = api.issue.getIssues.useQuery();
+  if (isLoading) return <Loading />;
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 ">
       {issues?.map((issue) => (
@@ -56,13 +60,35 @@ const IssueCard = ({ title, status, description, id }: issueCardProps) => {
     deleteIssue.mutate({ id: id });
   };
 
+  const { issue, setIssue } = useIssueStore();
+
+  // state to handle the modal sheet
+  const [open, setOpen] = useState(false);
+  const handleOpenChange = (open: boolean) => setOpen(open);
+
+  // select a card item issue (useful for the modify issue cuz i won't have to use a router)
+  const selectIssue = () => {
+    setIssue({
+      id,
+      title,
+      status,
+      description,
+    });
+
+    console.log(issue);
+  };
+
   return (
-    <Card>
+    <Card onClick={() => selectIssue()}>
       <CardHeader>
         <div className="relative flex justify-start break-all ">
           <CardTitle>{title}</CardTitle>
           <div className="absolute right-0 flex space-x-2">
-            <PencilIcon className="cursor-pointer fill-yellow-500 " />
+            <PencilIcon
+              className="cursor-pointer fill-yellow-500"
+              onClick={() => setOpen(true)}
+            />
+            <ModifyIssue open={open} onOpenChange={handleOpenChange} />
             <XCircleIcon
               onClick={() => onDelete()}
               className="cursor-pointer fill-red-500"

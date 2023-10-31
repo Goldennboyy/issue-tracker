@@ -53,14 +53,14 @@ model User {
 }
 
 model Issue {
-    id          String   @id @default(cuid())
-    title       String   @unique
+    id          String    @id @default(cuid())
+    title       String    @unique
     description String
-    status      Status   @default(OPEN)
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    status      Status    @default(OPEN)
+    createdAt   DateTime? @default(now())
+    updatedAt   DateTime? @updatedAt
     // relation 1 -> many (1:n)
-    User        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    User        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId      String?
 }
 

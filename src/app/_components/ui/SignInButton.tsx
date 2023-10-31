@@ -11,7 +11,7 @@ const SignInButton = ({ session }: buttonProps) => {
   return (
     <Button>
       <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
-        {session ? "Sign out" : "Sign In"}
+        {session ? "Log out" : "Log In"}
       </Link>
     </Button>
   );

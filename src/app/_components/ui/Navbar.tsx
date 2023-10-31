@@ -1,5 +1,4 @@
 "use client";
-import { Bug } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -35,7 +34,10 @@ const Navbar = ({ session }: NavbarProps) => {
 
   return (
     <nav className="flex h-16 items-center space-x-6 border-b-2 border-b-black px-5">
-      <Bug />
+      <Avatar>
+        <AvatarImage src={session?.user.image ?? ""} />
+        <AvatarFallback>{session?.user.name ?? ""}</AvatarFallback>
+      </Avatar>
       <ul className="flex space-x-6">
         {links.map(({ pathName, url }, index) => (
           <li
@@ -48,12 +50,8 @@ const Navbar = ({ session }: NavbarProps) => {
           </li>
         ))}
       </ul>
-      <div className="absolute right-0 flex space-x-2 p-4">
+      <div className="absolute right-0 flex p-4">
         <SignInButton session={session} />
-        <Avatar>
-          <AvatarImage src={session?.user.image ?? ""} />
-          <AvatarFallback>{session?.user.name ?? ""}</AvatarFallback>
-        </Avatar>
       </div>
     </nav>
   );

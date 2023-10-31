@@ -1,5 +1,5 @@
 "use client";
-import { type Issue, IssueSchema } from "@/app/schema/IssueSchema";
+import { type Issue, IssueCreateSchema } from "@/app/schema/IssueSchema";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
@@ -12,7 +12,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const NewIssue = () => {
   const form = useForm<Issue>({
-    resolver: zodResolver(IssueSchema),
+    resolver: zodResolver(IssueCreateSchema),
     defaultValues: {
       title: "",
       description: "",
