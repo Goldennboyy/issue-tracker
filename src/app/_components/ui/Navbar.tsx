@@ -5,6 +5,7 @@ import React from "react";
 import SignInButton from "./SignInButton";
 import { type Session } from "next-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ThemeToggle } from "./ThemeToggle";
 
 // todo use zustand to get the global state instead of passing it as a prop
 
@@ -43,14 +44,17 @@ const Navbar = ({ session }: NavbarProps) => {
           <li
             key={index}
             className={`text-lg font-semibold transition-colors ${
-              path === url ? "text-zinc-900" : "text-zinc-500"
+              path === url
+                ? "text-zinc-900 dark:text-slate-100"
+                : "text-zinc-500 dark:text-slate-800"
             }`}
           >
             <Link href={url}>{pathName}</Link>
           </li>
         ))}
       </ul>
-      <div className="absolute right-0 flex p-4">
+      <div className="absolute right-0 flex space-x-3 p-4">
+        <ThemeToggle />
         <SignInButton session={session} />
       </div>
     </nav>

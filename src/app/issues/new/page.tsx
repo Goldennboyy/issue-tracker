@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { api } from "@/trpc/react";
@@ -76,11 +75,7 @@ const NewIssue = () => {
         )}
       </div>
 
-      <Button
-        variant={"default"}
-        className={cn("bg-blue-400 hover:bg-blue-500")}
-        type="submit"
-      >
+      <Button variant={"default"} type="submit">
         Submit
       </Button>
     </form>

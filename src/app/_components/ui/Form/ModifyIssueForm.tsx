@@ -60,6 +60,7 @@ const ModifyIssueForm = ({ onOpenChange }: ModifyIssueFormProps) => {
     },
 
     onSettled: async () => {
+      // invalidate the cache
       await trpc.issue.getIssues.invalidate();
     },
   });

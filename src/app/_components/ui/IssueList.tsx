@@ -12,7 +12,7 @@ import { PencilIcon, XCircleIcon } from "lucide-react";
 import React, { useState } from "react";
 import BadgeStatus from "./BadgeStatus";
 import { useToast } from "@/components/ui/use-toast";
-import ModifyIssue from "./ModifyIssueSheet";
+import ModifyIssueSheet from "./ModifyIssueSheet";
 import Loading from "./Loading";
 import { useIssueStore } from "@/app/store/store";
 
@@ -88,7 +88,7 @@ const IssueCard = ({ title, status, description, id }: issueCardProps) => {
               className="cursor-pointer fill-yellow-500"
               onClick={() => setOpen(true)}
             />
-            <ModifyIssue open={open} onOpenChange={handleOpenChange} />
+            <ModifyIssueSheet open={open} onOpenChange={handleOpenChange} />
             <XCircleIcon
               onClick={() => onDelete()}
               className="cursor-pointer fill-red-500"

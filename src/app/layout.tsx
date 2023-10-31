@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import Navbar from "./_components/ui/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import { getServerAuthSession } from "@/server/auth";
+import ThemeProviders from "./Providers/ThemeProviders";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,12 +27,19 @@ export default async function RootLayout({
 }) {
   const session = await getServerAuthSession();
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider headers={headers()}>
-          <Navbar session={session} />
-          <main className="relative p-6">{children}</main>
-          <Toaster />
+          <ThemeProviders
+            enableSystem
+            attribute="class"
+            defaultTheme="system"
+            disableTransitionOnChange
+          >
+            <Navbar session={session} />
+            <main className="relative p-6">{children}</main>
+            <Toaster />
+          </ThemeProviders>
         </TRPCReactProvider>
       </body>
     </html>
