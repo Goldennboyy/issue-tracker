@@ -12,7 +12,7 @@ import { PencilIcon, XCircleIcon } from "lucide-react";
 import React, { useState } from "react";
 import BadgeStatus from "./BadgeStatus";
 import { useToast } from "@/components/ui/use-toast";
-import ModifyIssue from "./ModifyIssue";
+import ModifyIssue from "./ModifyIssueSheet";
 import Loading from "./Loading";
 import { useIssueStore } from "@/app/store/store";
 
