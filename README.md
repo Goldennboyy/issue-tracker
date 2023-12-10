@@ -29,8 +29,6 @@ The issue-tracker project relies on essential dependencies such as Prisma, React
 
 - [🙌 Contributors](#contributors)
 
-- [📄 License](#license)
-
 ## 📁 Project Structure
 
 ```bash
@@ -202,7 +200,3 @@ yarn dev
 <a href="https://github.com/Goldennboyy/issue-tracker/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=Goldennboyy/issue-tracker" />
 </a>
-
-## 📄 License
-
-[**Add Your License**](https://choosealicense.com)
