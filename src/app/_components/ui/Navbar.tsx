@@ -33,7 +33,7 @@ const Navbar = ({ session }: NavbarProps) => {
   const path = usePathname();
 
   return (
-    <nav className="flex items-center h-16 px-5 space-x-6 border-b-2 border-b-black">
+    <nav className="flex items-center justify-start h-16 px-5 space-x-6 border-b-2 border-b-black">
       <Avatar>
         <AvatarImage src={session?.user.image ?? ""} />
         <AvatarFallback>{session?.user.name ?? ""}</AvatarFallback>
@@ -42,17 +42,16 @@ const Navbar = ({ session }: NavbarProps) => {
         {links.map(({ pathName, url }, index) => (
           <li
             key={index}
-            className={`text-lg font-semibold transition-colors ${
-              path === url
-                ? "text-zinc-900 dark:text-slate-100"
-                : "text-zinc-500 dark:text-slate-800"
-            }`}
+            className={`text-lg font-semibold transition-colors ${path === url
+              ? "text-zinc-900 dark:text-slate-100"
+              : "text-zinc-500 dark:text-slate-800"
+              }`}
           >
             <Link href={url}>{pathName}</Link>
           </li>
         ))}
       </ul>
-      <div className="absolute right-0 flex p-4 space-x-3">
+      <div className="flex justify-end flex-1 p-4 space-x-3">
         <ThemeToggle />
         <SignInButton session={session} />
       </div>
