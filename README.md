@@ -1,6 +1,10 @@
 <p align="center">
 <a href=https://github.com/Goldennboyy/issue-tracker target="_blank">
 <img src='./public/Image/Issue tracker_list.png' width="100%" alt="Banner" />
+<img src='./public/Image/Issue tracker_dash.png' width="100%" alt="Banner" />
+<img src='./public/Image/Issue tracker_edit.png' width="100%" alt="Banner" />
+<img src='./public/Image/Issue tracker_create.png' width="100%" alt="Banner" />
+
 </a>
 </p>
 
