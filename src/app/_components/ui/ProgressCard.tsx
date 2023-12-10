@@ -3,13 +3,14 @@ import { cn } from '@/lib/utils'
 import { api } from '@/trpc/server'
 import { Status } from '@prisma/client'
 import React, { Suspense } from 'react'
+import Loading from './Loading'
 
 type props = {
     status: Status
 }
 
-const ProgressCard = ({ status }: props) => {
-    const count = api.issue.countIssueStatus.query({
+const ProgressCard = async ({ status }: props) => {
+    const count = await api.issue.countIssueStatus.query({
         status: status
     })
 
@@ -31,13 +32,17 @@ const ProgressCard = ({ status }: props) => {
         <Card className={cn('w-full max-w-md')}>
             <CardHeader>
                 <CardTitle>
-                    <Suspense fallback={<div>Loading...</div>}>
-                        {getStatus(status)} Issue(s)
+                    <Suspense fallback={<Loading />}>
+                        <span>
+                            {getStatus(status)} Issue(s)
+                        </span>
                     </Suspense>
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                {count}
+                <span className='text-lg font-semibold'>
+                    {count}
+                </span>
             </CardContent>
         </Card>
     )

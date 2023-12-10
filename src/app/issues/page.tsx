@@ -16,7 +16,7 @@ const IssuePage = () => {
           </div>
         </Button>
       </Link>
-      <div className="py-10">
+      <div className="py-5">
         <h1 className="text-2xl font-semibold">Latest Issue</h1>
       </div>
       <div className="items-center mx-auto">
