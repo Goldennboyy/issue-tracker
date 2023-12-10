@@ -57,18 +57,19 @@ const ModifyIssueForm = ({ onOpenChange }: ModifyIssueFormProps) => {
     onSettled: async () => {
       // invalidate the cache
       await trpc.issue.getIssues.invalidate();
+      await trpc.issue.countIssueStatus.invalidate()
     },
   });
 
   // get the Issue from the global store from a selected card
   const { issue } = useIssueStore();
 
-  
 
-  console.log("issue", {issue});
+
+  console.log("issue", { issue });
 
   useEffect(() => {
-    if (!issue) return 
+    if (!issue) return
     form.setValue("title", issue.title);
     form.setValue("description", issue.description);
     form.setValue("status", issue.status);
