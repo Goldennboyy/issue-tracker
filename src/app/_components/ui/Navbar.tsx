@@ -7,7 +7,6 @@ import { type Session } from "next-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThemeToggle } from "./ThemeToggle";
 
-// todo use zustand to get the global state instead of passing it as a prop
 
 type LinkProps = {
   pathName: string;
@@ -34,7 +33,7 @@ const Navbar = ({ session }: NavbarProps) => {
   const path = usePathname();
 
   return (
-    <nav className="flex h-16 items-center space-x-6 border-b-2 border-b-black px-5">
+    <nav className="flex items-center h-16 px-5 space-x-6 border-b-2 border-b-black">
       <Avatar>
         <AvatarImage src={session?.user.image ?? ""} />
         <AvatarFallback>{session?.user.name ?? ""}</AvatarFallback>
@@ -53,7 +52,7 @@ const Navbar = ({ session }: NavbarProps) => {
           </li>
         ))}
       </ul>
-      <div className="absolute right-0 flex space-x-3 p-4">
+      <div className="absolute right-0 flex p-4 space-x-3">
         <ThemeToggle />
         <SignInButton session={session} />
       </div>

@@ -79,11 +79,11 @@ const IssueCard = ({ title, status, description, id }: issueCardProps) => {
   };
 
   return (
-    <Card onClick={() => selectIssue()}>
+    <Card onClick={() => selectIssue()} className={cn("max-w-lg w-full")}>
       <CardHeader>
-        <div className="relative flex justify-start break-all ">
+        <div className="relative flex justify-start leading-3 break-all ">
           <CardTitle>{title}</CardTitle>
-          <div className="absolute right-0 flex space-x-2">
+          <div className="flex justify-end flex-1 space-x-2">
             <PencilIcon
               className="cursor-pointer fill-yellow-500"
               onClick={() => setOpen(true)}

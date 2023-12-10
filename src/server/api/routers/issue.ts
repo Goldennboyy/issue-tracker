@@ -90,4 +90,17 @@ export const issueRouter = createTRPCRouter({
         },
       });
     }),
+
+  countIssueStatus : protectedProcedure.input(z.object({
+    status: z.enum([Status.CLOSED, Status.OPEN, Status.IN_PROGRESS]),
+  })).query(async ({ ctx , input }) => {
+
+    return await ctx.db.issue.count({
+      where : {
+        status : input.status
+      }
+    })
+  })
+
+  
 });

@@ -22,7 +22,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Status } from "@prisma/client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface ModifyIssueFormProps {
@@ -32,11 +32,6 @@ interface ModifyIssueFormProps {
 const ModifyIssueForm = ({ onOpenChange }: ModifyIssueFormProps) => {
   const form = useForm<ModifyIssue>({
     resolver: zodResolver(ModifyIssueSchema),
-    defaultValues: {
-      title: "",
-      status: Status.OPEN,
-      description: "",
-    },
   });
 
   const { toast } = useToast();
@@ -68,16 +63,23 @@ const ModifyIssueForm = ({ onOpenChange }: ModifyIssueFormProps) => {
   // get the Issue from the global store from a selected card
   const { issue } = useIssueStore();
 
-  if (!issue) return;
+  
 
-  console.log("issue", issue);
+  console.log("issue", {issue});
+
+  useEffect(() => {
+    if (!issue) return 
+    form.setValue("title", issue.title);
+    form.setValue("description", issue.description);
+    form.setValue("status", issue.status);
+  }, [form, issue])
 
   const modifySubmit = (values: ModifyIssue) => {
     const res = ModifyIssueSchema.safeParse(values);
     if (res.success) {
       console.log({ values });
       modifyIssue.mutate({
-        id: issue.id,
+        id: issue?.id ?? "",
         title: values.title,
         description: values.description,
         status: values.status,
@@ -93,7 +95,7 @@ const ModifyIssueForm = ({ onOpenChange }: ModifyIssueFormProps) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          console.log(form.getValues(), issue.id);
+          console.log(form.getValues(), issue?.id);
           form.handleSubmit(modifySubmit);
         }}
         className="flex flex-col space-y-6"
@@ -102,7 +104,6 @@ const ModifyIssueForm = ({ onOpenChange }: ModifyIssueFormProps) => {
           control={form.control}
           name="title"
           render={({ field }) => (
-            console.log(field),
             (
               <FormItem>
                 <FormLabel>Title</FormLabel>
@@ -118,7 +119,6 @@ const ModifyIssueForm = ({ onOpenChange }: ModifyIssueFormProps) => {
           control={form.control}
           name="description"
           render={({ field }) => (
-            console.log(field),
             (
               <FormItem>
                 <FormLabel>Description</FormLabel>
@@ -134,7 +134,6 @@ const ModifyIssueForm = ({ onOpenChange }: ModifyIssueFormProps) => {
           control={form.control}
           name="status"
           render={({ field }) => (
-            console.log(field),
             (
               <FormItem>
                 <FormLabel>Status</FormLabel>
