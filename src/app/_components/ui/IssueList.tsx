@@ -27,7 +27,7 @@ export const IssueList = () => {
   const { data: issues, isLoading } = api.issue.getIssues.useQuery();
   if (isLoading) return <Loading />;
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 ">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {issues?.map((issue) => (
         <IssueCard
           key={issue.id}
@@ -79,7 +79,7 @@ const IssueCard = ({ title, status, description, id }: issueCardProps) => {
   };
 
   return (
-    <Card onClick={() => selectIssue()} className={cn("max-w-lg w-full")}>
+    <Card onClick={() => selectIssue()} className={cn("max-w-md w-full rounded-lg ")}>
       <CardHeader>
         <div className="relative flex justify-start leading-3 break-all ">
           <CardTitle>{title}</CardTitle>
